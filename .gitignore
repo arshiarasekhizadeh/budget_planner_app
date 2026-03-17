@@ -1,0 +1,66 @@
+# =====================
+# Backend (Python / FastAPI)
+# =====================
+# Virtual environment
+backend/venv/
+# Python cache
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+# Environment variables
+backend/.env
+# SQLite or local DB files
+backend/*.sqlite3
+# Logs
+backend/*.log
+# Alembic pycache
+backend/alembic/versions/*.pyc
+
+# =====================
+# Frontend (Next.js / Node.js)
+# =====================
+# Node modules
+frontend/node_modules/
+# Next.js build output
+frontend/.next/
+frontend/dist/
+frontend/out/
+# Environment variables
+frontend/.env.local
+frontend/.env.development
+frontend/.env.production
+# Logs
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# =====================
+# Docker
+# =====================
+# Docker logs
+*.log
+# Docker Compose overrides
+docker-compose.override.yml
+**/docker-compose.override.yml
+# Ignore Dockerfiles if temporary or build-specific
+**/Dockerfile.*
+
+# =====================
+# IDEs / Editors
+# =====================
+.vscode/
+*.code-workspace
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# =====================
+# OS / Misc
+# =====================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.tmp
+*.backup
