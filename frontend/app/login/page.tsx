@@ -17,7 +17,7 @@ export default function LoginPage() {
       const data = await login({ email, password });
       localStorage.setItem('token', data.access_token);
       alert('Login successful!');
-      window.location.href = '/transactions';
+      window.location.href = '/dashboard';
     } catch (error: any) {
       alert(error.message || 'Login failed. Please check your credentials.');
     } finally {
