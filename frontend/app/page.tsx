@@ -13,7 +13,7 @@ export default function Home() {
         </div>
         <div className="flex items-center space-x-4">
           <Link href="/login" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors font-sans">Login</Link>
-          <Link href="/transactions" className="bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900 px-5 py-2 rounded-full text-sm font-medium hover:opacity-90 transition-opacity font-sans">
+          <Link href="/signup" className="bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900 px-5 py-2 rounded-full text-sm font-medium hover:opacity-90 transition-opacity font-sans">
             Sign Up
           </Link>
         </div>
@@ -29,7 +29,7 @@ export default function Home() {
             A minimalist budget planner designed for focus. Track every transaction, visualize your goals, and master your financial life.
           </p>
           <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-20 font-sans">
-            <Link href="/transactions" className="bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900 px-10 py-4 rounded-full text-lg font-medium hover:opacity-90 transition-opacity shadow-xl shadow-zinc-200 dark:shadow-none">
+            <Link href="/signup" className="bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900 px-10 py-4 rounded-full text-lg font-medium hover:opacity-90 transition-opacity shadow-xl shadow-zinc-200 dark:shadow-none">
               Start Planning
             </Link>
             <Link href="#features" className="border border-zinc-200 dark:border-zinc-800 px-10 py-4 rounded-full text-lg font-medium hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors">

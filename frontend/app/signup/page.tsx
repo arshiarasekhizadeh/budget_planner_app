@@ -3,23 +3,29 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-export default function LoginPage() {
+export default function SignupPage() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+    
     setIsLoading(true);
     
     // The user will implement the backend manually.
-    // This is where the call to your login endpoint would go.
-    console.log('Login attempt with:', { email, password });
+    console.log('Signup attempt with:', { name, email, password });
     
     // Simulate a delay
     setTimeout(() => {
       setIsLoading(false);
-      alert('Backend connection not yet implemented. Check console for credentials.');
+      alert('Backend connection not yet implemented. Check console for details.');
     }, 1000);
   };
 
@@ -33,18 +39,33 @@ export default function LoginPage() {
         </Link>
       </nav>
 
-      {/* Login Form */}
+      {/* Signup Form */}
       <main className="flex-grow flex items-center justify-center px-6 py-12">
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
-            <h1 className="text-3xl font-bold tracking-tight mb-2">Welcome back</h1>
+            <h1 className="text-3xl font-bold tracking-tight mb-2">Create an account</h1>
             <p className="text-zinc-500 dark:text-zinc-400">
-              Enter your credentials to access your account
+              Join Budget today and start planning your future
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="mt-8 space-y-6">
             <div className="space-y-4">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium mb-2 text-zinc-700 dark:text-zinc-300">
+                  Full Name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-50 transition-all"
+                  placeholder="John Doe"
+                />
+              </div>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium mb-2 text-zinc-700 dark:text-zinc-300">
                   Email address
@@ -61,14 +82,9 @@ export default function LoginPage() {
                 />
               </div>
               <div>
-                <div className="flex items-center justify-between mb-2">
-                  <label htmlFor="password" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                    Password
-                  </label>
-                  <Link href="#" className="text-xs text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
-                    Forgot password?
-                  </Link>
-                </div>
+                <label htmlFor="password" className="block text-sm font-medium mb-2 text-zinc-700 dark:text-zinc-300">
+                  Password
+                </label>
                 <input
                   id="password"
                   name="password"
@@ -76,6 +92,21 @@ export default function LoginPage() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-50 transition-all"
+                  placeholder="••••••••"
+                />
+              </div>
+              <div>
+                <label htmlFor="confirmPassword" className="block text-sm font-medium mb-2 text-zinc-700 dark:text-zinc-300">
+                  Confirm Password
+                </label>
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-50 transition-all"
                   placeholder="••••••••"
                 />
@@ -88,16 +119,16 @@ export default function LoginPage() {
                 disabled={isLoading}
                 className="w-full bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900 py-3 rounded-xl font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
               >
-                {isLoading ? 'Signing in...' : 'Sign in'}
+                {isLoading ? 'Creating account...' : 'Sign up'}
               </button>
             </div>
           </form>
 
           <div className="text-center mt-8">
             <p className="text-sm text-zinc-500">
-              Don&apos;t have an account?{' '}
-              <Link href="/signup" className="font-medium text-zinc-900 dark:text-zinc-50 hover:underline">
-                Sign up
+              Already have an account?{' '}
+              <Link href="/login" className="font-medium text-zinc-900 dark:text-zinc-50 hover:underline">
+                Sign in
               </Link>
             </p>
           </div>
