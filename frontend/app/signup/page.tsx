@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { signup } from '@/services/api';
 
 export default function SignupPage() {
   const [name, setName] = useState('');
@@ -19,14 +20,19 @@ export default function SignupPage() {
     
     setIsLoading(true);
     
-    // The user will implement the backend manually.
-    console.log('Signup attempt with:', { name, email, password });
-    
-    // Simulate a delay
-    setTimeout(() => {
+    try {
+      await signup({ 
+        email, 
+        password, 
+        full_name: name 
+      });
+      alert('Account created successfully! You can now sign in.');
+      window.location.href = '/login';
+    } catch (error: any) {
+      alert(error.message || 'Signup failed. Please try again.');
+    } finally {
       setIsLoading(false);
-      alert('Backend connection not yet implemented. Check console for details.');
-    }, 1000);
+    }
   };
 
   return (

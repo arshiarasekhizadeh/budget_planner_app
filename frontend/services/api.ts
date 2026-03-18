@@ -1,4 +1,4 @@
-const API = process.env.NEXT_PUBLIC_API_URL;
+const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 export const request = async (endpoint: string, options?: RequestInit) => {
   const res = await fetch(`${API}${endpoint}`, {
@@ -10,12 +10,26 @@ export const request = async (endpoint: string, options?: RequestInit) => {
   });
 
   if (!res.ok) {
-    throw new Error(`API error: ${res.status}`);
+    const errorData = await res.json().catch(() => ({}));
+    throw new Error(errorData.detail || `API error: ${res.status}`);
   }
 
   return res.json();
 };
 
+export const signup = (data: any) => {
+  return request("/auth/signup", {
+    method: "POST",
+    body: JSON.stringify(data)
+  });
+};
+
+export const login = (data: any) => {
+  return request("/auth/login", {
+    method: "POST",
+    body: JSON.stringify(data)
+  });
+};
 
 export const getTransactions = () => {
   return request("/transactions");

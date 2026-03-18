@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { login } from '@/services/api';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -12,15 +13,16 @@ export default function LoginPage() {
     e.preventDefault();
     setIsLoading(true);
     
-    // The user will implement the backend manually.
-    // This is where the call to your login endpoint would go.
-    console.log('Login attempt with:', { email, password });
-    
-    // Simulate a delay
-    setTimeout(() => {
+    try {
+      const data = await login({ email, password });
+      localStorage.setItem('token', data.access_token);
+      alert('Login successful!');
+      window.location.href = '/transactions';
+    } catch (error: any) {
+      alert(error.message || 'Login failed. Please check your credentials.');
+    } finally {
       setIsLoading(false);
-      alert('Backend connection not yet implemented. Check console for credentials.');
-    }, 1000);
+    }
   };
 
   return (
