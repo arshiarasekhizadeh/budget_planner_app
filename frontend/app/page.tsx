@@ -28,13 +28,37 @@ export default function Home() {
           <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 mb-12 max-w-2xl leading-relaxed font-sans">
             A minimalist budget planner designed for focus. Track every transaction, visualize your goals, and master your financial life.
           </p>
-          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-20 font-sans">
-            <Link href="/signup" className="bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900 px-10 py-4 rounded-full text-lg font-medium hover:opacity-90 transition-opacity shadow-xl shadow-zinc-200 dark:shadow-none">
+          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-20 font-sans relative">
+            <Link href="/signup" className="z-10 bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900 px-10 py-4 rounded-full text-lg font-medium hover:opacity-90 transition-opacity shadow-xl shadow-zinc-200 dark:shadow-none">
               Start Planning
             </Link>
-            <Link href="#features" className="border border-zinc-200 dark:border-zinc-800 px-10 py-4 rounded-full text-lg font-medium hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors">
+            <Link href="#features" className="z-10 border border-zinc-200 dark:border-zinc-800 px-10 py-4 rounded-full text-lg font-medium hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors">
               Learn More
             </Link>
+
+            {/* Floating Transaction Badges */}
+            <div className="absolute -top-16 -left-20 hidden lg:block animate-bounce duration-[3000ms] bg-white dark:bg-zinc-900 p-3 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-2xl rotate-[-12deg] opacity-80">
+               <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-green-100 dark:bg-green-950/30 text-green-600 rounded-lg flex items-center justify-center">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
+                  </div>
+                  <div className="text-left">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Salary</p>
+                    <p className="text-xs font-black text-green-600">+$4,250.00</p>
+                  </div>
+               </div>
+            </div>
+            <div className="absolute -bottom-8 -right-24 hidden lg:block animate-bounce duration-[4000ms] bg-white dark:bg-zinc-900 p-3 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-2xl rotate-[8deg] opacity-80">
+               <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-red-100 dark:bg-red-950/30 text-red-600 rounded-lg flex items-center justify-center">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
+                  </div>
+                  <div className="text-left">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Rent</p>
+                    <p className="text-xs font-black text-red-600">-$1,800.00</p>
+                  </div>
+               </div>
+            </div>
           </div>
           
           {/* App Preview Mockup */}
@@ -43,27 +67,47 @@ export default function Home() {
              <div className="relative w-full h-full border border-zinc-200 dark:border-zinc-700 rounded-2xl bg-white dark:bg-zinc-950 shadow-sm p-6 flex flex-col items-start space-y-6 overflow-hidden">
                 <div className="flex items-center space-x-2 w-full justify-between">
                   <div className="flex space-x-4">
-                    <div className="h-3 w-20 bg-zinc-100 dark:bg-zinc-800 rounded-full"></div>
-                    <div className="h-3 w-12 bg-zinc-50 dark:bg-zinc-900 rounded-full"></div>
+                    <div className="h-3 w-20 bg-zinc-900 dark:bg-zinc-100 rounded-full"></div>
+                    <div className="h-3 w-12 bg-zinc-100 dark:bg-zinc-800 rounded-full"></div>
                   </div>
-                  <div className="h-8 w-8 bg-zinc-100 dark:bg-zinc-800 rounded-full"></div>
+                  <div className="h-8 w-8 bg-zinc-100 dark:bg-zinc-800 rounded-full flex items-center justify-center">
+                    <div className="w-4 h-4 rounded-full bg-zinc-900 dark:bg-zinc-50"></div>
+                  </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="h-32 bg-zinc-50 dark:bg-zinc-900/50 rounded-xl border border-zinc-100 dark:border-zinc-800 p-4 flex flex-col justify-between">
-                      <div className="h-2 w-1/2 bg-zinc-200 dark:bg-zinc-800 rounded-full"></div>
-                      <div className="h-4 w-3/4 bg-zinc-300 dark:bg-zinc-700 rounded-full"></div>
+                  {[
+                    { label: 'Income', amount: '$5,200', color: 'bg-green-500' },
+                    { label: 'Expenses', amount: '$3,150', color: 'bg-red-500' },
+                    { label: 'Savings', amount: '$2,050', color: 'bg-zinc-900 dark:bg-zinc-50' }
+                  ].map((card, i) => (
+                    <div key={i} className="h-32 bg-zinc-50 dark:bg-zinc-900/50 rounded-2xl border border-zinc-100 dark:border-zinc-800 p-6 flex flex-col justify-between items-start">
+                      <div className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">{card.label}</div>
+                      <div className="text-2xl font-black tracking-tighter">{card.amount}</div>
+                      <div className={`h-1.5 w-full rounded-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden`}>
+                        <div className={`h-full w-2/3 ${card.color} rounded-full`}></div>
+                      </div>
                     </div>
                   ))}
                 </div>
-                <div className="space-y-3 w-full pt-4">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div key={i} className="h-14 w-full bg-zinc-50 dark:bg-zinc-900/30 rounded-xl border border-zinc-100/50 dark:border-zinc-800/50 flex items-center px-6 justify-between opacity-50">
+                <div className="space-y-4 w-full pt-4">
+                  {[
+                    { name: 'Apple Music', cat: 'Entertainment', val: '-$10.99', sign: 'neg' },
+                    { name: 'Starbucks', cat: 'Food & Drink', val: '-$6.50', sign: 'neg' },
+                    { name: 'Stripe Payout', cat: 'Business', val: '+$1,200.00', sign: 'pos' }
+                  ].map((item, i) => (
+                    <div key={i} className="h-16 w-full bg-zinc-50 dark:bg-zinc-900/30 rounded-2xl border border-zinc-100/50 dark:border-zinc-800/50 flex items-center px-6 justify-between">
                       <div className="flex items-center space-x-4">
-                        <div className="h-8 w-8 bg-zinc-200 dark:bg-zinc-800 rounded-lg"></div>
-                        <div className="h-2 w-24 bg-zinc-200 dark:bg-zinc-800 rounded-full"></div>
+                        <div className="h-10 w-10 bg-zinc-200 dark:bg-zinc-800 rounded-xl flex items-center justify-center text-xs font-black">
+                          {item.name[0]}
+                        </div>
+                        <div className="text-left">
+                          <p className="text-sm font-bold">{item.name}</p>
+                          <p className="text-[10px] font-medium text-zinc-400 uppercase tracking-wider">{item.cat}</p>
+                        </div>
                       </div>
-                      <div className={`h-2 w-12 rounded-full ${i % 2 === 0 ? 'bg-red-400/20' : 'bg-green-400/20'}`}></div>
+                      <div className={`text-sm font-black ${item.sign === 'pos' ? 'text-green-600' : 'text-zinc-900 dark:text-zinc-50'}`}>
+                        {item.val}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -101,6 +145,56 @@ export default function Home() {
                 <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed font-light">
                   Your financial data is yours. We prioritize privacy and security above all else.
                 </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* About Section */}
+        <section id="about" className="px-6 py-32 bg-zinc-50 dark:bg-zinc-900/30">
+          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+            <div className="space-y-8">
+              <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight">
+                Built for those who value <span className="text-zinc-400 italic">simplicity.</span>
+              </h2>
+              <p className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
+                We believe that managing your money shouldn&apos;t feel like a chore. Most apps are cluttered with ads and features you never use. Budget. is different—it&apos;s a focused tool designed to give you instant clarity over your finances.
+              </p>
+              <ul className="space-y-4">
+                {['No hidden fees or subscriptions', 'Works seamlessly in dark mode', 'Lightning fast performance'].map((item) => (
+                  <li key={item} className="flex items-center space-x-3 text-sm font-bold text-zinc-800 dark:text-zinc-200">
+                    <svg className="w-5 h-5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div className="relative group">
+              <div className="absolute -inset-4 bg-gradient-to-tr from-zinc-200 to-zinc-100 dark:from-zinc-800 dark:to-zinc-900 rounded-[3rem] blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000"></div>
+              <div className="relative bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 p-12 rounded-[2.5rem] shadow-2xl overflow-hidden">
+                <div className="flex flex-col items-center justify-center space-y-8 py-4">
+                  <div className="relative w-48 h-48">
+                    {/* Animated Progress Circle */}
+                    <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                      <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="8" fill="transparent" className="text-zinc-100 dark:text-zinc-900" />
+                      <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="8" fill="transparent" strokeDasharray="283" strokeDashoffset="70" className="text-zinc-900 dark:text-zinc-50 transition-all duration-1000 ease-out" />
+                    </svg>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <span className="text-3xl font-black tracking-tighter">75%</span>
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Saved</span>
+                    </div>
+                  </div>
+                  <div className="text-center space-y-2">
+                    <p className="text-xl font-black tracking-tight">Your Monthly Goal</p>
+                    <p className="text-sm text-zinc-500 font-medium">Almost there! Keep going.</p>
+                  </div>
+                  <div className="w-full flex justify-between gap-4">
+                    <div className="flex-1 h-2 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                      <div className="w-3/4 h-full bg-zinc-900 dark:bg-zinc-50 rounded-full"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

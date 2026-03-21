@@ -63,4 +63,13 @@ Thumbs.db
 *.swp
 *.swo
 *.tmp
+*.tmp
 *.backup
+
+# =====================
+# Project Specific
+# =====================
+test_gemini.py
+test_gemini_new.py
+test_repro.py
+backend/uploads/
