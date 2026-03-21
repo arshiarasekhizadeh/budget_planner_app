@@ -4,6 +4,15 @@ from typing import Optional
 class UserBase(BaseModel):
     email: EmailStr
     full_name: Optional[str] = None
+    profile_image: Optional[str] = None
+
+class UserUpdate(BaseModel):
+    full_name: Optional[str] = None
+    email: Optional[EmailStr] = None
+
+class ChangePassword(BaseModel):
+    old_password: str
+    new_password: str
 
 class UserCreate(UserBase):
     password: str
