@@ -1,65 +1,223 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 transition-colors duration-300">
+      {/* Navbar */}
+      <nav className="flex items-center justify-between px-6 py-6 md:px-12 max-w-7xl mx-auto w-full">
+        <div className="text-xl font-bold tracking-tighter font-sans">Budget.</div>
+        <div className="hidden md:flex space-x-8 text-sm font-medium text-zinc-500 dark:text-zinc-400 font-sans">
+          <Link href="#features" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Features</Link>
+          <Link href="#about" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">About</Link>
+        </div>
+        <div className="flex items-center space-x-4">
+          <Link href="/login" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors font-sans">Login</Link>
+          <Link href="/signup" className="bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900 px-5 py-2 rounded-full text-sm font-medium hover:opacity-90 transition-opacity font-sans">
+            Sign Up
+          </Link>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <main className="flex-grow">
+        <section className="flex flex-col items-center justify-center px-6 py-20 md:py-32 text-center max-w-5xl mx-auto w-full">
+          <h1 className="text-5xl md:text-8xl font-bold tracking-tight mb-8 font-sans">
+            Manage money with <span className="text-zinc-400 dark:text-zinc-600 italic font-sans">clarity.</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 mb-12 max-w-2xl leading-relaxed font-sans">
+            A minimalist budget planner designed for focus. Track every transaction, visualize your goals, and master your financial life.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-20 font-sans relative">
+            <Link href="/signup" className="z-10 bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900 px-10 py-4 rounded-full text-lg font-medium hover:opacity-90 transition-opacity shadow-xl shadow-zinc-200 dark:shadow-none">
+              Start Planning
+            </Link>
+            <Link href="#features" className="z-10 border border-zinc-200 dark:border-zinc-800 px-10 py-4 rounded-full text-lg font-medium hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors">
+              Learn More
+            </Link>
+
+            {/* Floating Transaction Badges */}
+            <div className="absolute -top-16 -left-20 hidden lg:block animate-bounce duration-[3000ms] bg-white dark:bg-zinc-900 p-3 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-2xl rotate-[-12deg] opacity-80">
+               <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-green-100 dark:bg-green-950/30 text-green-600 rounded-lg flex items-center justify-center">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
+                  </div>
+                  <div className="text-left">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Salary</p>
+                    <p className="text-xs font-black text-green-600">+$4,250.00</p>
+                  </div>
+               </div>
+            </div>
+            <div className="absolute -bottom-8 -right-24 hidden lg:block animate-bounce duration-[4000ms] bg-white dark:bg-zinc-900 p-3 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-2xl rotate-[8deg] opacity-80">
+               <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-red-100 dark:bg-red-950/30 text-red-600 rounded-lg flex items-center justify-center">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
+                  </div>
+                  <div className="text-left">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Rent</p>
+                    <p className="text-xs font-black text-red-600">-$1,800.00</p>
+                  </div>
+               </div>
+            </div>
+          </div>
+          
+          {/* App Preview Mockup */}
+          <div className="w-full aspect-video max-w-5xl bg-zinc-50 dark:bg-zinc-900/50 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-2xl p-4 md:p-8 overflow-hidden relative group">
+             <div className="absolute inset-0 bg-gradient-to-tr from-white/40 to-transparent dark:from-zinc-950/20 pointer-events-none"></div>
+             <div className="relative w-full h-full border border-zinc-200 dark:border-zinc-700 rounded-2xl bg-white dark:bg-zinc-950 shadow-sm p-6 flex flex-col items-start space-y-6 overflow-hidden">
+                <div className="flex items-center space-x-2 w-full justify-between">
+                  <div className="flex space-x-4">
+                    <div className="h-3 w-20 bg-zinc-900 dark:bg-zinc-100 rounded-full"></div>
+                    <div className="h-3 w-12 bg-zinc-100 dark:bg-zinc-800 rounded-full"></div>
+                  </div>
+                  <div className="h-8 w-8 bg-zinc-100 dark:bg-zinc-800 rounded-full flex items-center justify-center">
+                    <div className="w-4 h-4 rounded-full bg-zinc-900 dark:bg-zinc-50"></div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+                  {[
+                    { label: 'Income', amount: '$5,200', color: 'bg-green-500' },
+                    { label: 'Expenses', amount: '$3,150', color: 'bg-red-500' },
+                    { label: 'Savings', amount: '$2,050', color: 'bg-zinc-900 dark:bg-zinc-50' }
+                  ].map((card, i) => (
+                    <div key={i} className="h-32 bg-zinc-50 dark:bg-zinc-900/50 rounded-2xl border border-zinc-100 dark:border-zinc-800 p-6 flex flex-col justify-between items-start">
+                      <div className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">{card.label}</div>
+                      <div className="text-2xl font-black tracking-tighter">{card.amount}</div>
+                      <div className={`h-1.5 w-full rounded-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden`}>
+                        <div className={`h-full w-2/3 ${card.color} rounded-full`}></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="space-y-4 w-full pt-4">
+                  {[
+                    { name: 'Apple Music', cat: 'Entertainment', val: '-$10.99', sign: 'neg' },
+                    { name: 'Starbucks', cat: 'Food & Drink', val: '-$6.50', sign: 'neg' },
+                    { name: 'Stripe Payout', cat: 'Business', val: '+$1,200.00', sign: 'pos' }
+                  ].map((item, i) => (
+                    <div key={i} className="h-16 w-full bg-zinc-50 dark:bg-zinc-900/30 rounded-2xl border border-zinc-100/50 dark:border-zinc-800/50 flex items-center px-6 justify-between">
+                      <div className="flex items-center space-x-4">
+                        <div className="h-10 w-10 bg-zinc-200 dark:bg-zinc-800 rounded-xl flex items-center justify-center text-xs font-black">
+                          {item.name[0]}
+                        </div>
+                        <div className="text-left">
+                          <p className="text-sm font-bold">{item.name}</p>
+                          <p className="text-[10px] font-medium text-zinc-400 uppercase tracking-wider">{item.cat}</p>
+                        </div>
+                      </div>
+                      <div className={`text-sm font-black ${item.sign === 'pos' ? 'text-green-600' : 'text-zinc-900 dark:text-zinc-50'}`}>
+                        {item.val}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+             </div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section id="features" className="px-6 py-32 border-t border-zinc-100 dark:border-zinc-900">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-16 font-sans">
+              <div className="space-y-6 text-left">
+                <div className="inline-flex items-center justify-center p-3 bg-zinc-100 dark:bg-zinc-900 rounded-2xl">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-12 0 9 9 0 0112 0z" /></svg>
+                </div>
+                <h3 className="text-xl font-bold">Fast Tracking</h3>
+                <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed font-light">
+                  Add transactions in milliseconds. Minimal friction so you actually keep up with your goals.
+                </p>
+              </div>
+              <div className="space-y-6 text-left">
+                <div className="inline-flex items-center justify-center p-3 bg-zinc-100 dark:bg-zinc-900 rounded-2xl">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2m0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                </div>
+                <h3 className="text-xl font-bold">Visual Budgets</h3>
+                <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed font-light">
+                  Beautifully simple charts that tell you exactly where your money is going at a glance.
+                </p>
+              </div>
+              <div className="space-y-6 text-left">
+                <div className="inline-flex items-center justify-center p-3 bg-zinc-100 dark:bg-zinc-900 rounded-2xl">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                </div>
+                <h3 className="text-xl font-bold">Private & Secure</h3>
+                <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed font-light">
+                  Your financial data is yours. We prioritize privacy and security above all else.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* About Section */}
+        <section id="about" className="px-6 py-32 bg-zinc-50 dark:bg-zinc-900/30">
+          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+            <div className="space-y-8">
+              <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight">
+                Built for those who value <span className="text-zinc-400 italic">simplicity.</span>
+              </h2>
+              <p className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
+                We believe that managing your money shouldn&apos;t feel like a chore. Most apps are cluttered with ads and features you never use. Budget. is different—it&apos;s a focused tool designed to give you instant clarity over your finances.
+              </p>
+              <ul className="space-y-4">
+                {['No hidden fees or subscriptions', 'Works seamlessly in dark mode', 'Lightning fast performance'].map((item) => (
+                  <li key={item} className="flex items-center space-x-3 text-sm font-bold text-zinc-800 dark:text-zinc-200">
+                    <svg className="w-5 h-5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div className="relative group">
+              <div className="absolute -inset-4 bg-gradient-to-tr from-zinc-200 to-zinc-100 dark:from-zinc-800 dark:to-zinc-900 rounded-[3rem] blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000"></div>
+              <div className="relative bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 p-12 rounded-[2.5rem] shadow-2xl overflow-hidden">
+                <div className="flex flex-col items-center justify-center space-y-8 py-4">
+                  <div className="relative w-48 h-48">
+                    {/* Animated Progress Circle */}
+                    <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                      <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="8" fill="transparent" className="text-zinc-100 dark:text-zinc-900" />
+                      <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="8" fill="transparent" strokeDasharray="283" strokeDashoffset="70" className="text-zinc-900 dark:text-zinc-50 transition-all duration-1000 ease-out" />
+                    </svg>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <span className="text-3xl font-black tracking-tighter">75%</span>
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Saved</span>
+                    </div>
+                  </div>
+                  <div className="text-center space-y-2">
+                    <p className="text-xl font-black tracking-tight">Your Monthly Goal</p>
+                    <p className="text-sm text-zinc-500 font-medium">Almost there! Keep going.</p>
+                  </div>
+                  <div className="w-full flex justify-between gap-4">
+                    <div className="flex-1 h-2 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                      <div className="w-3/4 h-full bg-zinc-900 dark:bg-zinc-50 rounded-full"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
+
+      {/* Footer */}
+      <footer className="px-6 py-16 border-t border-zinc-100 dark:border-zinc-900 bg-zinc-50 dark:bg-zinc-950 font-sans">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
+          <div className="flex flex-col items-center md:items-start space-y-4">
+            <div className="text-xl font-bold tracking-tighter">Budget.</div>
+            <p className="text-sm text-zinc-500">The minimalist way to plan your future.</p>
+          </div>
+          <div className="flex space-x-12 text-sm font-medium text-zinc-500">
+            <Link href="#" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Privacy</Link>
+            <Link href="#" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Terms</Link>
+            <Link href="https://github.com" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">GitHub</Link>
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-zinc-200 dark:border-zinc-900 text-center text-xs text-zinc-400 uppercase tracking-widest">
+          © 2026 Budget Planner app. Designed for simplicity.
+        </div>
+      </footer>
     </div>
   );
 }
