@@ -36,7 +36,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["*"], # In production, replace with your specific Vercel URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
