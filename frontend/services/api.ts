@@ -173,3 +173,7 @@ export const deleteBudget = (id: number, token: string) => {
     }
   });
 };
+
+export const getTransactions = () => {
+  return request("/transactions");
+};
