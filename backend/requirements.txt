@@ -10,3 +10,5 @@ pydantic
 pydantic-settings
 fastapi-mail
 python-multipart
+google-genai
+reportlab
