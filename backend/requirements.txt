@@ -9,6 +9,7 @@ python-jose[cryptography]
 pydantic
 pydantic-settings
 fastapi-mail
+resend
 python-multipart
 google-genai
 reportlab
