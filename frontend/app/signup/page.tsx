@@ -14,6 +14,22 @@ export default function SignupPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const passwordRequirements = [
+      { label: 'At least 8 characters', regex: /.{8,}/ },
+      { label: 'At least one uppercase letter', regex: /[A-Z]/ },
+      { label: 'At least one lowercase letter', regex: /[a-z]/ },
+      { label: 'At least one number', regex: /[0-9]/ },
+      { label: 'At least one special character', regex: /[!@#$%^&*(),.?":{}|<>]/ },
+    ];
+
+    const isPasswordValid = passwordRequirements.every(req => req.regex.test(password));
+    
+    if (!isPasswordValid) {
+      setErrorMessage('Please ensure your password meets all requirements.');
+      return;
+    }
+
     setIsLoading(true);
     setErrorMessage('');
     
@@ -51,7 +67,7 @@ export default function SignupPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 font-sans transition-colors duration-300">
       <nav className="flex items-center justify-between px-6 py-6 md:px-12 max-w-7xl mx-auto w-full">
-        <Link href="/" className="text-xl font-bold tracking-tighter">Budget.</Link>
+        <Link href="/" className="text-xl font-bold tracking-tighter">Budgetly</Link>
         <Link href="/login" className="text-sm font-bold text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
           Already have an account?
         </Link>
@@ -109,6 +125,27 @@ export default function SignupPage() {
                   className="w-full px-5 py-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-50 transition-all font-medium"
                   placeholder="••••••••"
                 />
+                
+                {/* Real-time Password Requirements Checklist */}
+                <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 px-2">
+                  {[
+                    { label: '8+ Characters', regex: /.{8,}/ },
+                    { label: 'Uppercase', regex: /[A-Z]/ },
+                    { label: 'Lowercase', regex: /[a-z]/ },
+                    { label: 'Number', regex: /[0-9]/ },
+                    { label: 'Special Character', regex: /[!@#$%^&*(),.?":{}|<>]/ },
+                  ].map((req, i) => {
+                    const isMet = req.regex.test(password);
+                    return (
+                      <div key={i} className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider transition-colors duration-300 ${isMet ? 'text-green-500' : 'text-zinc-400'}`}>
+                        <div className={`w-3 h-3 rounded-full flex items-center justify-center border ${isMet ? 'bg-green-500 border-green-500 text-white' : 'border-zinc-300 dark:border-zinc-700'}`}>
+                          {isMet && <svg className="w-2 h-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M5 13l4 4L19 7" /></svg>}
+                        </div>
+                        {req.label}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
@@ -129,7 +166,7 @@ export default function SignupPage() {
       </main>
 
       <footer className="px-6 py-8 text-center text-[10px] text-zinc-400 uppercase tracking-[0.2em] font-bold">
-        © 2026 Budget Planner. Secure & Private.
+        © 2026 Budgetly. Secure & Private.
       </footer>
     </div>
   );

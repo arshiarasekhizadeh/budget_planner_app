@@ -39,7 +39,7 @@ function VerifyEmailContent() {
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 font-sans items-center justify-center px-6">
       <div className="w-full max-w-md text-center space-y-8 p-12 rounded-[2.5rem] border border-zinc-100 dark:border-zinc-800 shadow-sm">
-        <Link href="/" className="text-2xl font-bold tracking-tighter block mb-8">Budget.</Link>
+        <Link href="/" className="text-2xl font-bold tracking-tighter block mb-8">Budgetly</Link>
         
         {status === 'loading' && (
           <div className="space-y-4">
