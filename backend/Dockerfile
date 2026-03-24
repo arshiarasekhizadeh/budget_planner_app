@@ -18,7 +18,8 @@ COPY . .
 # Expose the port FastAPI runs on
 EXPOSE 8000
 
-# Command to run migrations and then start the server
-# In a real production environment, you might want to run migrations 
-# as part of your CI/CD pipeline instead.
-CMD ["sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"]
+# Give start.sh execution permission (if not already)
+RUN chmod +x start.sh
+
+# Use start.sh as the default command
+CMD ["./start.sh"]
