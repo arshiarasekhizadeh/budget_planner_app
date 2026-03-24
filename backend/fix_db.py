@@ -1,5 +1,5 @@
 import os
-from sqlalchemy import create_all, text, create_engine
+from sqlalchemy import text, create_engine
 from app.core.database import SQLALCHEMY_DATABASE_URL
 
 def fix_database():
