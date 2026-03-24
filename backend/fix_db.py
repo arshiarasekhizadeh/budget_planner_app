@@ -1,9 +1,18 @@
 import os
+import sys
 from sqlalchemy import text, create_engine
-from app.core.database import SQLALCHEMY_DATABASE_URL
+
+# Ensure we can import from the 'app' directory
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+from app.core.database import DATABASE_URL
 
 def fix_database():
-    engine = create_engine(SQLALCHEMY_DATABASE_URL)
+    if not DATABASE_URL:
+        print("ERROR: DATABASE_URL not set in environment.")
+        return
+        
+    engine = create_engine(DATABASE_URL)
     
     # List of columns to ensure exist in the 'users' table
     # format: (column_name, column_type)
