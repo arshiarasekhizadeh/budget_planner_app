@@ -1,5 +1,6 @@
 import os
 import secrets
+import resend
 from fastapi_mail import ConnectionConfig, FastMail, MessageSchema, MessageType
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pathlib import Path
@@ -9,18 +10,20 @@ class MailSettings(BaseSettings):
     
     MAIL_USERNAME: str = ""
     MAIL_PASSWORD: str = ""
-    MAIL_FROM: str = "noreply@budgetplanner.com"
+    MAIL_FROM: str = "onboarding@resend.dev"
     MAIL_PORT: int = 587
     MAIL_SERVER: str = "smtp.gmail.com"
-    MAIL_FROM_NAME: str = "Budget Planner"
+    MAIL_FROM_NAME: str = "Budgetly"
     MAIL_STARTTLS: bool = True
     MAIL_SSL_TLS: bool = False
     USE_CREDENTIALS: bool = True
     VALIDATE_CERTS: bool = True
     FRONTEND_URL: str = "http://localhost:3000"
+    RESEND_API_KEY: str = "" # Optional, if using Resend HTTP API
 
 mail_settings = MailSettings()
 
+# SMTP Configuration (Fallback or for local testing)
 conf = ConnectionConfig(
     MAIL_USERNAME=mail_settings.MAIL_USERNAME,
     MAIL_PASSWORD=mail_settings.MAIL_PASSWORD,
@@ -34,6 +37,10 @@ conf = ConnectionConfig(
     VALIDATE_CERTS=mail_settings.VALIDATE_CERTS
 )
 
+# Initialize Resend SDK if API key is provided
+if mail_settings.RESEND_API_KEY:
+    resend.api_key = mail_settings.RESEND_API_KEY
+
 async def send_verification_email(email: str, token: str):
     verify_url = f"{mail_settings.FRONTEND_URL}/verify-email?token={token}"
     
@@ -46,14 +53,7 @@ async def send_verification_email(email: str, token: str):
     </div>
     """
     
-    message = MessageSchema(
-        subject="Budgetly - Verify your email",
-        recipients=[email],
-        body=html,
-        subtype=MessageType.html
-    )
-    
-    await _send(email, message, verify_url)
+    await _send(email, "Budgetly - Verify your email", html, verify_url)
 
 async def send_password_reset_email(email: str, token: str):
     reset_url = f"{mail_settings.FRONTEND_URL}/reset-password?token={token}"
@@ -67,28 +67,41 @@ async def send_password_reset_email(email: str, token: str):
     </div>
     """
     
-    message = MessageSchema(
-        subject="Budgetly - Reset your password",
-        recipients=[email],
-        body=html,
-        subtype=MessageType.html
-    )
-    
-    await _send(email, message, reset_url)
+    await _send(email, "Budgetly - Reset your password", html, reset_url)
 
-async def _send(email: str, message: MessageSchema, debug_url: str):
+async def _send(email: str, subject: str, html: str, debug_url: str):
+    # Try using Resend API first (highly reliable on Render)
+    if mail_settings.RESEND_API_KEY:
+        print(f"DEBUG: Attempting to send email to {email} via Resend HTTP API...")
+        try:
+            params: resend.Emails.SendParams = {
+                "from": f"{mail_settings.MAIL_FROM_NAME} <{mail_settings.MAIL_FROM}>",
+                "to": [email],
+                "subject": subject,
+                "html": html,
+            }
+            resend.Emails.send(params)
+            print(f"SUCCESS: Email sent to {email} via Resend API")
+            return
+        except Exception as e:
+            print(f"ERROR: Failed to send via Resend API: {str(e)}. Falling back to SMTP...")
+
+    # Fallback to SMTP
     fm = FastMail(conf)
-    # If credentials are not set, we'll just log the link for development
     if not mail_settings.MAIL_USERNAME or not mail_settings.MAIL_PASSWORD:
         print(f"DEBUG: Email credentials not set. URL: {debug_url}")
         return
 
-    print(f"DEBUG: Attempting to send email to {email}...")
-    print(f"DEBUG: Server: {mail_settings.MAIL_SERVER}:{mail_settings.MAIL_PORT}")
-    print(f"DEBUG: SSL_TLS: {mail_settings.MAIL_SSL_TLS}, STARTTLS: {mail_settings.MAIL_STARTTLS}")
+    message = MessageSchema(
+        subject=subject,
+        recipients=[email],
+        body=html,
+        subtype=MessageType.html
+    )
 
+    print(f"DEBUG: Attempting to send email to {email} via SMTP...")
     try:
         await fm.send_message(message)
-        print(f"SUCCESS: Email sent to {email}")
+        print(f"SUCCESS: Email sent to {email} via SMTP")
     except Exception as e:
-        print(f"ERROR: Failed to send email to {email}: {str(e)}")
+        print(f"ERROR: Failed to send email to {email} via SMTP: {str(e)}")
