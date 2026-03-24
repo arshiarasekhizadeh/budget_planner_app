@@ -5,14 +5,12 @@ set -e
 # Use PORT from environment or default to 8000
 PORT=${PORT:-8000}
 
-echo "Running migrations..."
+echo "Ensuring database schema is correct on Neon..."
+# Run our fix script before everything else
+python fix_db.py
 
-# We try to upgrade. If it fails (like because of DuplicateColumn on Render),
-# we then try to stamp it to the latest version to tell Alembic "we are good".
-alembic upgrade head || {
-    echo "Migration failed, stamping database to head instead..."
-    alembic stamp head
-}
+echo "Running migrations..."
+alembic upgrade head || echo "Alembic upgrade failed, but schema fix should handle it."
 
 echo "Starting server on port $PORT..."
 uvicorn app.main:app --host 0.0.0.0 --port $PORT
