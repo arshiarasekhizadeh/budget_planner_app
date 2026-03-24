@@ -6,7 +6,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 transition-colors duration-300">
       {/* Navbar */}
       <nav className="flex items-center justify-between px-6 py-6 md:px-12 max-w-7xl mx-auto w-full">
-        <div className="text-xl font-bold tracking-tighter font-sans">Budget.</div>
+        <div className="text-xl font-bold tracking-tighter font-sans">Budgetly</div>
         <div className="hidden md:flex space-x-8 text-sm font-medium text-zinc-500 dark:text-zinc-400 font-sans">
           <Link href="#features" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Features</Link>
           <Link href="#about" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">About</Link>
@@ -158,7 +158,7 @@ export default function Home() {
                 Built for those who value <span className="text-zinc-400 italic">simplicity.</span>
               </h2>
               <p className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
-                We believe that managing your money shouldn&apos;t feel like a chore. Most apps are cluttered with ads and features you never use. Budget. is different—it&apos;s a focused tool designed to give you instant clarity over your finances.
+                We believe that managing your money shouldn&apos;t feel like a chore. Most apps are cluttered with ads and features you never use. Budgetly is different—it&apos;s a focused tool designed to give you instant clarity over your finances.
               </p>
               <ul className="space-y-4">
                 {['No hidden fees or subscriptions', 'Works seamlessly in dark mode', 'Lightning fast performance'].map((item) => (
@@ -205,7 +205,7 @@ export default function Home() {
       <footer className="px-6 py-16 border-t border-zinc-100 dark:border-zinc-900 bg-zinc-50 dark:bg-zinc-950 font-sans">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
           <div className="flex flex-col items-center md:items-start space-y-4">
-            <div className="text-xl font-bold tracking-tighter">Budget.</div>
+            <div className="text-xl font-bold tracking-tighter">Budgetly</div>
             <p className="text-sm text-zinc-500">The minimalist way to plan your future.</p>
           </div>
           <div className="flex space-x-12 text-sm font-medium text-zinc-500">

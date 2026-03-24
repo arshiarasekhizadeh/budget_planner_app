@@ -44,6 +44,20 @@ export const login = (data: any) => {
   });
 };
 
+export const forgotPassword = (email: string) => {
+  return request("/auth/forgot-password", {
+    method: "POST",
+    body: JSON.stringify({ email })
+  });
+};
+
+export const resetPassword = (data: any) => {
+  return request("/auth/reset-password", {
+    method: "POST",
+    body: JSON.stringify(data)
+  });
+};
+
 export const verifyEmail = (token: string) => {
   return request(`/auth/verify-email?token=${token}`);
 };

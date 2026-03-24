@@ -30,7 +30,7 @@ export default function LoginPage() {
     <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 font-sans transition-colors duration-300">
       {/* Navbar */}
       <nav className="flex items-center justify-between px-6 py-6 md:px-12 max-w-7xl mx-auto w-full">
-        <Link href="/" className="text-xl font-bold tracking-tighter">Budget.</Link>
+        <Link href="/" className="text-xl font-bold tracking-tighter">Budgetly</Link>
         <Link href="/" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
           Back to home
         </Link>
@@ -77,7 +77,7 @@ export default function LoginPage() {
                   <label htmlFor="password" className="block text-xs font-bold uppercase tracking-widest text-zinc-400">
                     Password
                   </label>
-                  <Link href="#" className="text-xs font-bold text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
+                  <Link href="/forgot-password" title="Forgot Password" className="text-xs font-bold text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
                     Forgot?
                   </Link>
                 </div>
@@ -121,7 +121,7 @@ export default function LoginPage() {
 
       {/* Footer */}
       <footer className="px-6 py-8 text-center text-[10px] text-zinc-400 uppercase tracking-[0.2em] font-bold">
-        © 2026 Budget Planner. Secure & Private.
+        © 2026 Budgetly. Secure & Private.
       </footer>
     </div>
   );

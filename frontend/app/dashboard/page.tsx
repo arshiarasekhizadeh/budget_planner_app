@@ -63,7 +63,7 @@ export default function DashboardPage() {
       <nav className="sticky top-0 z-10 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-8">
-            <Link href="/" className="text-xl font-black tracking-tighter">Budget.</Link>
+            <Link href="/" className="text-xl font-black tracking-tighter">Budgetly</Link>
             <div className="hidden md:flex space-x-1 text-sm font-bold">
               <button 
                 onClick={() => setView('planner')}

@@ -46,6 +46,19 @@ export default function SettingsView({ user, setUser, setErrorMessage }: any) {
         return;
     }
 
+    const passwordRequirements = [
+        { regex: /.{8,}/ },
+        { regex: /[A-Z]/ },
+        { regex: /[a-z]/ },
+        { regex: /[0-9]/ },
+        { regex: /[!@#$%^&*(),.?":{}|<>]/ },
+    ];
+
+    if (!passwordRequirements.every(req => req.regex.test(newPassword))) {
+        setErrorMessage("New password does not meet the security requirements.");
+        return;
+    }
+
     setIsChangingPassword(true);
     setErrorMessage('');
     try {
@@ -176,6 +189,26 @@ export default function SettingsView({ user, setUser, setErrorMessage }: any) {
                             onChange={(e) => setNewPassword(e.target.value)}
                             className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-50 outline-none font-bold transition-all" 
                         />
+                        {/* Password Strength Checklist */}
+                        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 px-1">
+                            {[
+                                { label: '8+ Characters', regex: /.{8,}/ },
+                                { label: 'Uppercase', regex: /[A-Z]/ },
+                                { label: 'Lowercase', regex: /[a-z]/ },
+                                { label: 'Number', regex: /[0-9]/ },
+                                { label: 'Special Character', regex: /[!@#$%^&*(),.?":{}|<>]/ },
+                            ].map((req, i) => {
+                                const isMet = req.regex.test(newPassword);
+                                return (
+                                    <div key={i} className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider transition-colors duration-300 ${isMet ? 'text-green-500' : 'text-zinc-400'}`}>
+                                        <div className={`w-3 h-3 rounded-full flex items-center justify-center border ${isMet ? 'bg-green-500 border-green-500 text-white' : 'border-zinc-300 dark:border-zinc-700'}`}>
+                                            {isMet && <svg className="w-2 h-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M5 13l4 4L19 7" /></svg>}
+                                        </div>
+                                        {req.label}
+                                    </div>
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
                 <button 
