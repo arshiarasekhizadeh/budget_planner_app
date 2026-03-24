@@ -83,6 +83,10 @@ async def _send(email: str, message: MessageSchema, debug_url: str):
         print(f"DEBUG: Email credentials not set. URL: {debug_url}")
         return
 
+    print(f"DEBUG: Attempting to send email to {email}...")
+    print(f"DEBUG: Server: {mail_settings.MAIL_SERVER}:{mail_settings.MAIL_PORT}")
+    print(f"DEBUG: SSL_TLS: {mail_settings.MAIL_SSL_TLS}, STARTTLS: {mail_settings.MAIL_STARTTLS}")
+
     try:
         await fm.send_message(message)
         print(f"SUCCESS: Email sent to {email}")
